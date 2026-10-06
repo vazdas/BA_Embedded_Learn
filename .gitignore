@@ -1,0 +1,57 @@
+# ==========================================
+# System & OS Files
+# ==========================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.tmp
+*.log
+
+# ==========================================
+# VS Code
+# ==========================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.code-workspace
+
+# ==========================================
+# PlatformIO
+# ==========================================
+.pio/
+.pioenvs/
+.piolibdeps/
+.clangd/
+
+# ==========================================
+# ESP-IDF Framework
+# ==========================================
+build/
+sdkconfig.old
+managed_components/
+
+# ==========================================
+# STM32CubeIDE / CubeMX / GCC ARM Toolchain
+# ==========================================
+# Build folders
+Debug/
+Release/
+EWARM/
+MDK-ARM/
+
+# Binary & Object files
+*.elf
+*.hex
+*.bin
+*.map
+*.o
+*.d
+*.su
+*.cyclo
+*.lst
+
+# IDE & Project settings
+.settings/
+*.launch
+.target/
