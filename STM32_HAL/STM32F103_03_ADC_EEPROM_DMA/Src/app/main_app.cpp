@@ -4,28 +4,28 @@
 #include "main.h"
 #include "eeprom.h"
 #include "adc.h"
+#include "i2c.h"
 
 #define LED_OUT GPIO_PIN_13
 #define PortC GPIOC
 
 extern UART_HandleTypeDef huart1;
-extern ADC_HandleTypeDef hadc1;
-extern I2C_HandleTypeDef hi2c1;
 
-// printf to UART
-extern "C" int _write(int file, char *ptr, int len) {
-    HAL_UART_Transmit(&huart1, (uint8_t*)ptr, len, HAL_MAX_DELAY);
-    return len;
-}
+char text_buffer[100];
 
 extern "C" void main_cpp() {
-    printf("The Light Sensor is started!\n");
+    // Launche the ADC in DMA mode just once
+    ADC_Start_DMA_Mode();
+
+    // Sending the initial message via DMA
     if (HAL_I2C_IsDeviceReady(&hi2c1, 0xA0, 3, 100) == HAL_OK) {
-        printf("EEPROM FOUND!\r\n");
+        sprintf(text_buffer, "\r\n--- SYSTEM REBOOT ---\r\nStart with DMA!\r\nEEPROM FOUND!\r\nType 'W' to write or 'R' to read\r\n");
     } else {
-        printf("EEPROM DEAD (Check wiring/power)\r\n");
+        sprintf(text_buffer, "\r\n--- SYSTEM REBOOT ---\r\nStart with DMA!\r\nEEPROM DEAD!\r\nType 'W' to write or 'R' to read\r\n");
     }
-    printf("Type the 'W' to write data or 'R' to read tha last data.\n");
+
+    // Відправляємо його одним цілим шматком
+    HAL_UART_Transmit_DMA(&huart1, (uint8_t*)text_buffer, strlen(text_buffer));
 
     uint32_t previous_millis = 0;
     uint32_t led_previous_millis = 0;
@@ -37,7 +37,13 @@ extern "C" void main_cpp() {
         // Getting ADC data from LDR each 1sec.(1000ms)
         if (current_millis - previous_millis >= 1000) {
             previous_millis = current_millis;
-            HAL_ADC_Start_IT(&hadc1);
+
+            // Get tha latest value DMA put to the memory
+            uint16_t current_adc = ADC_Get_Latest_Value();
+
+            // Print the result of operation
+            sprintf(text_buffer, "[DMA Telemetry] ADC: %u\r", current_adc);
+            HAL_UART_Transmit_DMA(&huart1, (uint8_t*)text_buffer, strlen(text_buffer));
         }
 
         // LED blinking (each 200ms)
@@ -53,10 +59,15 @@ extern "C" void main_cpp() {
             if (rx_byte == 'W' || rx_byte == 'w') {
                 uint16_t current_adc = ADC_Get_Latest_Value();
                 EEPROM_Write_uint16(current_adc);
+
+                sprintf(text_buffer, "\r=> Saved %u to EEPROM\r\n", current_adc);
+                HAL_UART_Transmit_DMA(&huart1, (uint8_t*)text_buffer, strlen(text_buffer));
             }
             else if (rx_byte == 'R' || rx_byte == 'r') {
                 uint16_t last_saved_value = EEPROM_Read_uint16();
 
+                sprintf(text_buffer, "\r=> Read %u from EEPROM\r\n", last_saved_value);
+                HAL_UART_Transmit_DMA(&huart1, (uint8_t*)text_buffer, strlen(text_buffer));
             }
 
         }

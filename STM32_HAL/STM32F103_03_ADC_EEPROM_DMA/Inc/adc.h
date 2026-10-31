@@ -35,6 +35,7 @@ extern "C" {
 extern ADC_HandleTypeDef hadc1;
 
 /* USER CODE BEGIN Private defines */
+void ADC_Start_DMA_Mode(void);
 uint16_t ADC_Get_Latest_Value(void);
 /* USER CODE END Private defines */
 
