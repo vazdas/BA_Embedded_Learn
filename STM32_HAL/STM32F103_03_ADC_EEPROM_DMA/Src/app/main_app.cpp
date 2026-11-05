@@ -24,7 +24,7 @@ extern "C" void main_cpp() {
         sprintf(text_buffer, "\r\n--- SYSTEM REBOOT ---\r\nStart with DMA!\r\nEEPROM DEAD!\r\nType 'W' to write or 'R' to read\r\n");
     }
 
-    // Відправляємо його одним цілим шматком
+    // Sending the whole piece
     HAL_UART_Transmit_DMA(&huart1, (uint8_t*)text_buffer, strlen(text_buffer));
 
     uint32_t previous_millis = 0;
