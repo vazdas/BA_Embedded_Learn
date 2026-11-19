@@ -55,3 +55,7 @@ MDK-ARM/
 .settings/
 *.launch
 .target/.history/
+
+.history/
+*.lck
+*.kicad_prl
