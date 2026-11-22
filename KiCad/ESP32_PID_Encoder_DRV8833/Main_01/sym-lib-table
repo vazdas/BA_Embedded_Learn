@@ -1,0 +1,5 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "Custom_Modules") (type "KiCad") (uri "D:/Vazdas/Work/Beetroot_WorkFiles/KiCad/libraries/YD-ESP32-S3-main/Custom_Modules.kicad_sym") (options "") (descr ""))
+	(lib (name "New_Library") (type "KiCad") (uri "D:/Vazdas/Work/Beetroot_WorkFiles/KiCad/libraries/YD-ESP32-S3-main/New_Library.kicad_sym") (options "") (descr ""))
+)
