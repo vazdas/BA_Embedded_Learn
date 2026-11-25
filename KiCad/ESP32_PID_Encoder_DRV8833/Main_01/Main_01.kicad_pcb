@@ -1784,7 +1784,7 @@
 			)
 		)
 		(embedded_fonts no)
-		(model "D:/Vazdas/Work/Beetroot_WorkFiles/KiCad/libraries/YD-ESP32-S3-main/YD-ESP32-S3.step"
+		(model "kicad-embed://YD-ESP32-S3.step"
 			(offset
 				(xyz 14 -28.6 3.6)
 			)
@@ -2718,7 +2718,7 @@
 			(uuid "5d43528b-f39c-45ec-85a2-3885919d3813")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Modulo DRV8833/Modulo_DRV8833_A.stp"
+		(model "kicad-embed://Modulo_DRV8833_A.stp"
 			(offset
 				(xyz 7.5 -6.4 2.6)
 			)
@@ -5996,7 +5996,7 @@
 			(uuid "7bd4780b-c944-48f4-a0d1-07e8940fc482")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Potentiometer_RK09K1130/User Library-RK09K1130-20-1.step"
+		(model "kicad-embed://User Library-RK09K1130-20-1.step"
 			(offset
 				(xyz 7 -2.5 6)
 			)
